@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Archivo del Olvido - Océano</title>
+    <link rel="stylesheet" href="explorar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Times+New+Roman&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="contenedor-notificaciones" class="contenedor-notificaciones"></div>
+
+    <div id="pantalla-oceano">
+        <div id="fondo-degradado" class="fondo-degradado"></div>
+
+        <header class="cabecera-oceano">
+            <h2>~ El Océano de los Recuerdos ~</h2>
+            <p>Arrastra para navegar. Haz clic para abrir y doble clic para ver el reverso.</p>
+            <button id="btn-volver-inicio" class="btn-retro btn-pequeno" onclick="window.location.href='index.html'">[ Volver al inicio ]</button>
+        </header>
+
+        <div class="cosmos-wrapper">
+            <div class="oceano-board" id="oceanoBoard">
+                <div class="oceano-world" id="oceanoWorld"></div>
+
+                <div class="oceano-controls">
+                    <button class="control-btn" id="zoomOutBtn" title="Alejar">−</button>
+                    <button class="control-btn" id="zoomInBtn" title="Acercar">+</button>
+                    <button class="control-btn" id="resetBtn" title="Centrar">⟳</button>
+                    <button class="control-btn" id="randomBtn" title="Recuerdo aleatorio">🎲</button>
+                </div>
+
+                <button id="btn-subir-recuerdo" class="btn-subir-flotante" title="Ocultar un nuevo recuerdo">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE SUBIDA -->
+    <div id="modal-subida" class="modal oculto">
+        <div class="ventana-retro">
+            <div class="barra-titulo">Crear un nuevo recuerdo</div>
+            <div class="contenido-modal">
+                <div id="paso-1" class="paso">
+                    <h3>Paso 1: Elige el Icono</h3>
+                    <p>Este icono flotará por el universo y ocultará tu recuerdo.</p>
+                    <p class="nota">Solo se admiten archivos .PNG (con transparencia para mejor efecto)</p>
+                    <input type="file" id="input-icono" accept="image/png" hidden>
+                    <button id="btn-elegir-icono" class="btn-retro">[ Elegir Icono (.png) ]</button>
+                    <div id="preview-icono" class="preview"></div>
+                </div>
+
+                <div id="paso-2" class="paso oculto">
+                    <h3>Paso 2: ¿Qué deseas ocultar tras el icono?</h3>
+                    <p>Elige la imagen que quieres que se revele al hacer clic.</p>
+                    <input type="file" id="input-imagen" accept="image/*" hidden>
+                    <button id="btn-elegir-imagen" class="btn-retro">[ Elegir Imagen ]</button>
+                    <div id="preview-imagen" class="preview"></div>
+                </div>
+
+                <div id="paso-final" class="paso oculto">
+                    <h3>¡Todo listo!</h3>
+                    <p>Tu recuerdo está listo para ser lanzado al universo.</p>
+                    <button id="btn-lanzar" class="btn-retro btn-grande">[ Lanzar al Océano ]</button>
+                </div>
+
+                <button id="btn-cancelar-subida" class="btn-retro btn-pequeno" style="margin-top: 20px;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO Y LIBRETA -->
+    <div id="modal-foto" class="modal oculto">
+        <div class="modal-contenido" id="modal-contenido-tarjeta">
+            <span id="cerrar-modal">&times;</span>
+            
+            <div class="tarjeta-foto" id="tarjeta-foto">
+                <!-- Frente -->
+                <div class="cara-frontal">
+                    <img id="img-grande" src="" alt="Recuerdo">
+                </div>
+                <!-- Reverso -->
+                <div class="cara-trasera">
+                    <div class="hoja-libreta">
+                        <div class="libreta-encabezado">~ Notas del recuerdo ~</div>
+                        
+                        <div id="lista-comentarios" class="lista-comentarios"></div>
+                        
+                        <div class="libreta-input-zona">
+                            <textarea id="nuevo-comentario" placeholder="Escribe una nota aquí..."></textarea>
+                            <button id="btn-guardar-comentario" class="btn-retro btn-pequeno">Añadir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="cosmo.js"></script>
+</body>
+</html>

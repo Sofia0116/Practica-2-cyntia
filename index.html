@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Archivo del Olvido - Inicio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Times+New+Roman&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <audio id="musica-fondo" src="cancion1.mp3" loop></audio>
+    <div id="contenedor-notificaciones" class="contenedor-notificaciones"></div>
+
+    <div class="flex-inicio">
+        <div class="layout-retro">
+            <div class="caja-titulo">
+                <h1>EL ARCHIVO DEL OLVIDO</h1>
+            </div>
+
+            <div class="caja-links">
+                <div class="titulo-caja">ÍNDICE</div>
+                <button class="btn-retro" data-info="Aquí hablamos de cómo los recuerdos se desvanecen con el tiempo.">Sobre nosotros</button>
+                <button class="btn-retro" data-info="Esta página es un espacio para dejar recuerdos efímeros. Cada uno dura 6 horas.">Uso de la página</button>
+                <button class="btn-retro" id="btn-ir-oceano">Explorar</button>
+
+                <div class="textbox" style="text-align: center;">
+               <img src="https://images.emojiterra.com/google/noto-emoji/animated-emoji/1f419.gif" width="100px" style="margin: auto; display: block; 
+                filter: drop-shadow(.5px .5px 1px #A57352);"/> 
+                <a href="https://www.flaticon.es/" class="enlace-texto">Eligue tu icono</a>
+          </div>
+
+
+            </div>
+
+            <div class="caja-mensaje">
+                <h2>Bienvenido al Archivo</h2>
+                <p class="texto-poetico">
+                    "Algunos recuerdos no se ven, pero se sienten.<br>
+                    Aquí guardamos todo lo que el tiempo intentó borrar...<br>
+                    pero solo por un tiempo."
+                </p>
+                <p class="texto-pequeno">
+                    Este es un espacio para dejar fragmentos de tu memoria. 
+                    Elige un icono, oculta una imagen detrás de él y lánzalo a nuestro universo. 
+                    En 6 horas, se habrá desvanecido para siempre.
+                </p>
+                <button id="btn-ingresar" class="btn-retro btn-grande" onclick="window.location.href='explorar.html'">[ Entrar al Archivo ]</button>
+            </div>
+
+            <div class="caja-decorativa">
+                <p><strong>✦ Recuerdos Efímeros ✦</strong></p>
+                <p>Una vez que el recuerdo se va, no vuelve.</p>
+                <div class="icono-decorativo">🕰️</div>
+            </div>
+
+             
+          <div class="textbox">
+               <img src="https://i.pinimg.com/originals/28/bc/44/28bc44b5eed41b8a0b7829231bd684ad.gif" width="100px" style="margin: auto; display: block; 
+                filter: drop-shadow(.5px .5px 1px #A57352);"/> 
+               <p style="text-align: center; font-size: 14.5px; margin-top: 10px;">We didn't realize we were making memories, we just knew we were having fun</p>
+          </div>
+       
+
+            <div class="caja-footer">
+                © El Archivo del Olvido - 2024
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

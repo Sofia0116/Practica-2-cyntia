@@ -1,0 +1,365 @@
+:root {
+    --color-caja: #FFFBD8;
+    --color-borde: #A57352;
+    --color-titulo: #FFA3BE;
+    --color-libreta: #fdf5e6;
+    --color-linea-libreta: #a8c8e8;
+}
+
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Courier Prime', 'Times New Roman', monospace; overflow: hidden; background: #000; }
+
+
+.contenedor-notificaciones {
+    position: fixed; top: 20px; right: 20px; z-index: 9999;
+    display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+}
+.notificacion {
+    background: var(--color-caja); border: 2px solid var(--color-borde);
+    border-radius: 12px; padding: 12px 18px; max-width: 320px;
+    box-shadow: 4px 4px 0px var(--color-borde); font-family: 'Courier Prime', monospace;
+    font-size: 0.9rem; color: var(--color-borde);
+    animation: slideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: auto; position: relative; padding-right: 35px;
+}
+.notificacion.cerrando { animation: slideOut 0.3s ease forwards; }
+.notificacion-titulo { font-weight: bold; margin-bottom: 4px; color: var(--color-titulo); text-shadow: 1px 1px 0 var(--color-borde); }
+.notificacion-cerrar {
+    position: absolute; top: 6px; right: 8px; background: none; border: none;
+    color: var(--color-borde); font-size: 1.2rem; cursor: pointer; padding: 0;
+}
+@keyframes slideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(120%); opacity: 0; } }
+
+
+#pantalla-oceano {
+    position: relative; height: 100vh; width: 100vw;
+    background-color: #050505; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px;
+    padding: 20px; color: #faf8f9;
+}
+
+
+.fondo-degradado {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/crumpled-paper.png');
+    opacity: 0.05; pointer-events: none;
+}
+
+
+.cabecera-oceano { position: relative; z-index: 10; text-align: center; }
+.cabecera-oceano h2 { font-size: 2rem; font-family: 'Times New Roman', serif; margin: 0 0 5px; text-shadow: 2px 2px 0px #000; }
+.cabecera-oceano p { font-size: 0.95rem; font-style: italic; margin: 0 0 15px; opacity: 0.8; }
+.cabecera-oceano .btn-retro {
+    background: rgba(255,255,255,0.1); 
+    color: white; 
+    border: 1px solid white; 
+    padding: 5px 10px; 
+    font-size: 0.8rem; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    font-family: inherit;
+}
+.cabecera-oceano .btn-retro:hover { 
+    background: #FFFBD8; 
+    color: #000; 
+}
+/* ESTILOS BASE DE BOTONES (Traídos del index.html) */
+.btn-retro {
+    background: #FFFBD8;
+    border: 1px solid var(--color-borde);
+    color: var(--color-borde);
+    padding: 8px;
+    font-family: 'Courier Prime', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+.btn-retro:hover {
+    background: #FFA3BE;
+    color: white;
+    border-color: #FFFBD8;
+    transform: scale(1.05);
+}
+.btn-grande { 
+    padding: 8px; 
+    font-size: 0.9rem; 
+    margin-top: 20px; 
+}
+.btn-pequeno { 
+    padding: 5px 10px; 
+    font-size: 0.8rem; 
+}
+
+
+.cosmos-wrapper {
+    position: relative; z-index: 10; width: 95%; max-width: 1100px; height: 75vh;
+    border: 3px solid #d80f8b; border-radius: 20px; box-shadow: 6px 6px 0px #d80f8b;
+    background-color: #000; overflow: hidden;
+}
+
+
+.oceano-board {
+    position: absolute; inset: 0; cursor: grab; overflow: hidden; touch-action: none;
+    background-image:
+        linear-gradient(rgba(225, 218, 185, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(225, 218, 185, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+.oceano-board:active { cursor: grabbing; }
+
+
+.oceano-world {
+    position: absolute; top: 50%; left: 50%; width: 5000px; height: 5000px;
+    transform-origin: center center; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    user-select: none;
+    background-image:
+        radial-gradient(rgba(255, 255, 255, 0.6) 1.2px, transparent 1.2px),
+        radial-gradient(rgba(255, 220, 240, 0.5) 1.6px, transparent 1.6px),
+        radial-gradient(rgba(200, 220, 255, 0.4) 1px, transparent 1px);
+    background-size: 140px 140px, 240px 240px, 90px 90px;
+    background-position: 0 0, 70px 100px, 40px 50px;
+    animation: estrellasPulso 9s ease-in-out infinite alternate;
+}
+@keyframes estrellasPulso { 0% { filter: brightness(0.85); } 100% { filter: brightness(1.25); } }
+
+
+.icono-flotante {
+    position: absolute; width: 90px; height: 90px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    animation: flotarIcono 6s ease-in-out infinite alternate; z-index: 2;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
+}
+.icono-flotante img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; }
+.icono-flotante:hover { transform: scale(1.35) !important; z-index: 100; filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 30px rgba(255, 163, 190, 0.7)); }
+.icono-flotante.destacado { z-index: 99; filter: drop-shadow(0 0 20px #fff) drop-shadow(0 0 35px #FFA3BE); }
+@keyframes flotarIcono {
+    0% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-12px) translateX(8px); }
+    50% { transform: translateY(4px) translateX(-8px); }
+    75% { transform: translateY(-8px) translateX(4px); }
+    100% { transform: translateY(0px) translateX(0px); }
+}
+
+
+.oceano-controls { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 30; }
+.control-btn {
+    background: #000; color: #E1DAB9; border: 2px solid #d80f8b; border-radius: 10px;
+    width: 45px; height: 45px; font-size: 1.2rem; font-family: inherit; font-weight: bold;
+    cursor: pointer; box-shadow: 3px 3px 0px #e858aa; transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+}
+.control-btn:hover { background: #E1DAB9; color: #000; transform: scale(1.05); }
+.control-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px #E1DAB9; }
+
+
+.btn-subir-flotante {
+    position: absolute; bottom: 20px; left: 20px; width: 55px; height: 55px;
+    border-radius: 50%; background: #000; color: #E1DAB9; border: 2px solid #d80f8b;
+    font-size: 2rem; font-weight: bold; cursor: pointer; box-shadow: 3px 3px 0px #f54abc;
+    z-index: 30; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s, background 0.15s;
+}
+.btn-subir-flotante:hover { background: #E1DAB9; color: #000; transform: scale(1.1) rotate(90deg); }
+
+
+/* MODALES */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.modal:not(.oculto) { opacity: 1; pointer-events: auto; }
+
+
+.ventana-retro { background: #d4d0c8; border: 2px solid #fff; border-right-color: #808080; border-bottom-color: #808080; box-shadow: 4px 4px 0px #000; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+.barra-titulo { background: #000080; color: white; padding: 5px 10px; font-weight: bold; font-size: 0.9rem; }
+.contenido-modal { padding: 20px; background: #d4d0c8; }
+.paso { margin-bottom: 20px; }
+.paso h3 { margin-top: 0; color: #000080; }
+.nota { font-size: 0.8rem; color: #800000; font-style: italic; }
+.preview { margin-top: 10px; text-align: center; }
+.preview img { max-width: 100px; max-height: 100px; border: 1px solid #000; object-fit: contain; }
+
+
+/* =========================================
+   TARJETA 3D Y LIBRETA (CORREGIDO)
+   ========================================= */
+/* =========================================
+   TARJETA Y LIBRETA (MÉTODO SEGURO SIN 3D)
+   ========================================= */
+.modal-contenido { position: relative; }
+#cerrar-modal { position: absolute; top: -40px; right: 0; color: white; font-size: 40px; cursor: pointer; text-shadow: 2px 2px 0 #000; z-index: 3000; }
+
+
+.tarjeta-foto {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    cursor: pointer;
+}
+
+
+/* CONTROL DE VISIBILIDAD */
+.cara-frontal {
+    display: flex; /* Se muestra por defecto */
+    background: #111;
+    align-items: center; justify-content: center;
+    border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    width: 100%; height: 100%;
+    box-sizing: border-box;
+}
+
+
+.cara-trasera {
+    display: none; /* Oculto por defecto */
+    background: var(--color-libreta);
+    width: 100%; height: 100%;
+    border: 4px solid #c9a888;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+
+/* CUANDO SE VOLTEA, CAMBIAMOS EL DISPLAY */
+.tarjeta-foto.volteada .cara-frontal { display: none; }
+.tarjeta-foto.volteada .cara-trasera { display: flex; flex-direction: column; }
+
+
+.cara-frontal img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; }
+
+
+.hoja-libreta {
+    position: absolute; inset: 0; padding: 15px 15px 15px 45px; display: flex; flex-direction: column;
+    background-image:
+        linear-gradient(to right, transparent 38px, #e8a0a0 38px, #e8a0a0 40px, transparent 40px),
+        repeating-linear-gradient(to bottom, transparent 0px, transparent 26px, var(--color-linea-libreta) 26px, var(--color-linea-libreta) 27px);
+    background-attachment: local;
+}
+.cara-trasera::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 38px; height: 100%;
+    background-color: #f5e8d8; background-image: radial-gradient(circle, #c9a888 4px, transparent 4.5px);
+    background-size: 100% 34px; background-position: center 8px; background-repeat: repeat-y;
+    border-right: 1px solid #e0cbb0; z-index: 1; pointer-events: none;
+}
+
+
+/* (El resto de estilos de los comentarios y la libreta se mantienen igual) */
+.libreta-encabezado {
+    font-family: 'Courier Prime', monospace; font-weight: bold; color: #8b3a3a;
+    font-size: 1rem; margin: 0 0 8px; padding-bottom: 2px; z-index: 2; position: relative;
+}
+
+
+.lista-comentarios { flex-grow: 1; overflow-y: auto; margin-bottom: 8px; z-index: 2; position: relative; padding-right: 4px; min-height: 60px; }
+.lista-comentarios::-webkit-scrollbar { width: 6px; }
+.lista-comentarios::-webkit-scrollbar-thumb { background: #c9a888; border-radius: 3px; }
+
+
+.comentario-item {
+    background: transparent; padding: 2px 0; margin-bottom: 4px;
+    font-size: 1rem; font-family: 'Times New Roman', serif; color: #2a2a4a;
+    line-height: 27px; display: flex; justify-content: space-between;
+    align-items: flex-start; gap: 6px; position: relative; min-height: 27px;
+}
+.comentario-texto { flex: 1; word-break: break-word; line-height: 27px; }
+.comentario-acciones { display: flex; gap: 4px; flex-shrink: 0; opacity: 0.35; transition: opacity 0.2s; }
+.comentario-item:hover .comentario-acciones { opacity: 1; }
+.btn-accion-comentario { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 2px 4px; border-radius: 4px; line-height: 1;  color: #1b0101; }
+.btn-accion-comentario:hover { background: rgba(139, 58, 58, 0.15); transform: scale(1.15); }
+
+
+.comentario-editando { width: 100%; display: flex; flex-direction: column; gap: 4px; z-index: 3; }
+.comentario-editando textarea { width: 100%; font-family: 'Times New Roman', serif; font-size: 1rem; padding: 4px; border: 1px dashed #8b3a3a; border-radius: 4px; background: rgba(255, 255, 255, 0.9); resize: vertical; min-height: 40px; outline: none; color: #2a2a4a; }
+.comentario-editando-botones { display: flex; gap: 6px; justify-content: flex-end; }
+.comentario-editando-botones button { font-family: 'Courier Prime', monospace; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; cursor: pointer; border: 1px solid #8b3a3a; background: #fdf5e6; color: #8b3a3a; font-weight: bold; transition: all 0.15s; }
+.comentario-editando-botones button:hover { background: #8b3a3a; color: #fdf5e6; }
+
+
+.libreta-input-zona { display: flex; gap: 6px; align-items: flex-end; z-index: 2; position: relative; border-top: 1px dashed #c9a888; padding-top: 8px; }
+#nuevo-comentario {
+    flex: 1; height: 50px; border: 1px solid #c9a888; border-radius: 4px;
+    font-family: 'Times New Roman', serif; font-size: 1rem; padding: 6px;
+    background: rgba(255, 255, 255, 0.9); outline: none; resize: vertical;
+    color: #2a2a4a; line-height: 1.4;
+}
+#nuevo-comentario:focus { background: white; border-color: #8b3a3a; }
+
+
+.oculto { display: none !important; }
+
+/* ==========================================
+   ARREGLO DE BOTONES EN NOTIFICACIONES
+   ========================================== */
+.notificacion .btn-retro {
+    background: #FFFBD8;
+    border: 2px solid var(--color-borde);
+    color: var(--color-borde);
+    font-family: 'Courier Prime', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    box-shadow: 2px 2px 0px var(--color-borde);
+}
+
+.notificacion .btn-retro:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 3px 3px 0px var(--color-borde);
+}
+
+.notificacion .btn-retro.btn-aceptar {
+    background: #FFA3BE !important;
+    color: white !important;
+    border-color: #A57352 !important;
+    box-shadow: 2px 2px 0px #A57352;
+}
+
+.notificacion .btn-retro.btn-aceptar:hover {
+    box-shadow: 3px 3px 0px #A57352;
+}
+
+/* ==========================================
+   ARREGLO DE ANIMACIÓN DE NOTIFICACIONES
+   ========================================== */
+.contenedor-notificaciones {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column; /* Apila de arriba hacia abajo */
+    gap: 12px;
+    pointer-events: none;
+    align-items: flex-end; /* Alinea a la derecha */
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+.notificacion {
+    /* Forzamos la animación de entrada desde la derecha */
+    animation: slideInRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+    pointer-events: auto;
+    position: relative;
+    margin-bottom: 0;
+    transform-origin: top right;
+}
+
+/* Si tiene la clase cerrando, forzamos la salida a la derecha */
+.notificacion.cerrando {
+    animation: slideOutRight 0.3s ease-in forwards !important;
+}
+
+@keyframes slideInRight {
+    0% { transform: translateX(120%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutRight {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(120%); opacity: 0; }
+}
